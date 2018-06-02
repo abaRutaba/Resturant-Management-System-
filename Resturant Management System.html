@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Resturant Management System</title>
+<style>
+div
+{
+	float:left;
+	border:1px solid black;
+	padding:1%;
+	margin-right:1%;
+	
+}
+</style>
+<script>
+/*.......................................................................................
+
+				kitchen and cashier side is incomplete
+
+*/
+
+	var total=0,dish,k;
+	Pakfood = ["Chicken Biryani","Chicken Tikka","Channa Chaat","Grilled Seekh Kebabs","Chicken Sajji","Chicken Malai Botti","Reshmi Kebab","Chapati","Garlic Naan","Naan","Beef Boti","Halva Puri","Chicken Karhai","Kebab Karhai","Chikken Mughlai Tikka"];
+	Pakprice = [300,400,150,500,600,600,700,10,50,15,200,250,500,550,800] ;
+	
+	Cfood = ["Chicken Sweet Corn Soup","Chicken Mashroom Soup","Vegetable Sweet Corn Soup","Quick Fried Shredded Chicken","Shrimps Chow Mein","Mixed Vegetable Chow Mein","Chicken Crispy Noodle","Beef Crispy Noodle","Chicken Egg Fried Rice","Mixed Vegetable Egg Fried Rice","Hot and Sour Chicken","Chicken Jalferazi","Shashlik","Egg Fried Rice","Prawns","Garlic prawns","Chinese Rice","Chicken Rice Roll","Shrimp Dumplings in Soup","Beef Meatballs"];
+	
+	Cprice = [100,100,100,500,500,600,800,700,550,750,400,200,100,600,300,500,300,1000,1100,200];
+	
+	Refreshment = ["Tea","Mineral Water"];
+	Rprice = [200,100];
+	
+	
+	function myfunc(id,arr1,arr2,foodType,t)
+	{
+		var cell1,cell2, cell3,cell4;
+		var table = document.getElementById(id);
+		
+		//Making Heading
+		var header = table.createTHead();
+		var row = table.insertRow(0);
+		var tCell1 = row.insertCell(0);
+		var tCell2 = row.insertCell(1);
+		var tCell3 = row.insertCell(2);
+		tCell1.innerHTML = "<b>"+foodType+"</b>";
+		tCell2.innerHTML = "<b>Price</b>";
+		tCell3.innerHTML = "<b>Quantity</b>";
+		var i;
+		var j=0;
+		//Making Enteries of Food
+		for(i=0; i<arr1.length;i++)
+		{
+			
+			row = table.insertRow(i+1);
+			cell1 = row.insertCell(0);
+			cell2 = row.insertCell(1);
+			cell3 = row.insertCell(2);
+			cell4 = row.insertCell(3);
+			
+			cell1.innerHTML = arr1[i];
+			cell2.innerHTML = arr2[i];
+			cell3.innerHTML = "<input type='text' id='quantity"+j+t+"' placeholder='Enter Quantity here'/>" ;
+			cell4.innerHTML = "<input type='button' value='Ok' onClick=Ok('"+arr1[j]+"','"+arr2[j]+"','"+j+"','"+t+"'); />" ;
+			j++;
+
+			
+		}
+		
+	}
+	function Ok(d,am,index,y)//amount, index, t (i.e p,f,r)
+	{	
+		total = total+(document.getElementById("quantity"+index+y).value * am);
+		document.getElementById("bill").innerHTML = total;
+		console.log(total);
+		dish[k] = '"+d+"';
+		k++;
+	}
+	function submit()
+	{
+		for(x=0;x<dish.length;x++)
+		{
+			document.getElementById("kitchen").innerHTML += dish[x];
+		}
+		document.getElementById("time").innerHTML = "30 minutes";
+	}
+</script>
+</head>
+
+<body>
+	<h1>Resturant Management System</h1>
+    <p>Enter Desk No
+	    <input type="type" id="desk" required/>
+    </p>
+    
+    <div>
+    	<p>Pakistani Menu</p>
+	    <input type="button" value="Show Desi Menu" onClick="myfunc('myTable1',Pakfood,Pakprice,'Desi Food','p')"/>
+	    <table id="myTable1">
+    	</table>
+    </div>
+    
+    <div>
+	    <p>Chinese Menu</p>
+    	<input type="button" value="Show Chinese Menu" onClick="myfunc('myTable2',Cfood,Cprice,'Chinese Food','c')"/>
+	    <table id="myTable2">
+    	</table>
+    </div>
+    <div>
+    	<p>Refreshment Menu</p>
+	    <input type="button" value="Show Refreshment" onClick="myfunc('myTable3',Refreshment,Rprice,'Refreshment Food','r')"/>
+	    <table id="myTable3">
+    	</table>
+    </div>
+    <div>
+    <p id="bill"></p>
+    <input type="button" value="Submit My request" onClick="submit()"/>
+    </div>
+    <div>
+    	<h4>Kitchen Side</h4>
+    	<p id="kitchen"></p>
+        <p id="time"></p>
+    </div>
+</body>
+</html>
